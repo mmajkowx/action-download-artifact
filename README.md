@@ -1,3 +1,6 @@
+## Note
+This action is based of [dawidd6/action-download-artifact](https://github.com/dawidd6/action-download-artifact) which has a security vulnerability when using the default `path`. The maintainer prefered not to have this fixed since it's a breaking change. This repository fixes the issue.
+
 # Download workflow artifact GitHub Action
 
 An action that downloads and extracts uploaded artifact associated with given workflow and commit or other criteria.
