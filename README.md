@@ -1,5 +1,9 @@
 ## Note
-This action is based of [dawidd6/action-download-artifact](https://github.com/dawidd6/action-download-artifact) which has a security vulnerability when using the default `path`. The maintainer prefered not to have this fixed since it's a breaking change. This repository fixes the issue.
+This action is based on [dawidd6/action-download-artifact](https://github.com/dawidd6/action-download-artifact) which has a security vulnerability when using the default `path`. The maintainer prefered not to have this fixed since it's a breaking change. This repository fixes the issue.
+
+Keep your software supply chain safe.
+
+[Legit Security](https://www.legitsecurity.com)
 
 # Download workflow artifact GitHub Action
 
