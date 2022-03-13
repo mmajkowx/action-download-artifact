@@ -19,7 +19,7 @@ Let's suppose you have a workflow with a job in it that at the end uploads an ar
 
 ```yaml
 - name: Download artifact
-  uses: dawidd6/action-download-artifact@v2
+  uses: Legit-Labs/action-download-artifact@v2
   with:
     # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
     # Required, if artifact is from a different repo
