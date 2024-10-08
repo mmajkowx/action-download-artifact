@@ -12,6 +12,7 @@ async function main() {
         const [owner, repo] = core.getInput("repo", { required: true }).split("/")
         const path = core.getInput("path", { required: true })
         const name = core.getInput("name")
+        const nameIsRegExp = core.getBooleanInput("name_is_regexp")
         let workflowConclusion = core.getInput("workflow_conclusion")
         let pr = core.getInput("pr")
         let commit = core.getInput("commit")
@@ -117,12 +118,25 @@ async function main() {
             run_id: runID,
         })
 
-        // One artifact or all if `name` input is not specified.
+        // One artifact if 'name' input is specified, one or more if `name` is a regular expression, all otherwise.
         if (name) {
-            artifacts = artifacts.filter((artifact) => {
+            filtered = artifacts.filter((artifact) => {
+                if (nameIsRegExp) {
+                    return artifact.name.match(name) !== null
+                }
                 return artifact.name == name
             })
+            if (filtered.length == 0) {
+                core.info(`==> (not found) Artifact: ${name}`)
+                core.info('==> Found the following artifacts instead:')
+                for (const artifact of artifacts) {
+                    core.info(`\t==> (found) Artifact: ${artifact.name}`)
+                }
+            }
+            artifacts = filtered
         }
+
+        core.setOutput("artifacts", artifacts)
 
         if (artifacts.length == 0)
             throw new Error("no artifacts found")
@@ -141,7 +155,7 @@ async function main() {
                 archive_format: "zip",
             })
 
-            const dir = name ? path : pathname.join(path, artifact.name)
+            const dir = name && !nameIsRegExp ? path : pathname.join(path, artifact.name)
 
             fs.mkdirSync(dir, { recursive: true })
 
