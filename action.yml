@@ -58,5 +58,5 @@ outputs:
   error_message:
     description: The error message, if an error occurs
 runs:
-  using: node16
+  using: node20
   main: main.js
